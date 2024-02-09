@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Current Weather Website</title>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-heading"></div>   
+        <div class="container-data">
+            <form action="/" method="post">
+                <input type="text" class="text-box" name="city" placeholder="Enter a Place. Example:- London">
+                <button type="submit" class="btn">CHECK</button>
+            </form>
+        </div>
+        <br>
+        {% if city_name %}
+        <div class="show-result">
+            <div class="output"><h3 style="color:black; font-size:35px; font-weight:bold; font-family:'Courier New', Courier, monospace; text-transform: uppercase;">{{ city_name }}</h3></div>
+            <br>
+            <div class="output"><h3 style="color:green; font-size:22px; font-weight:bold;  font-family:'Courier New', Courier, monospace; ">WEATHER:</h3>{{ condition }}</div>
+            {% if condition=='Rain' %}
+            <div class="output-logo">
+                <img src="{{ url_for('static', filename='img/rain_light.png') }}">
+            </div>
+            {% elif condition=='Clear' %}
+            <div class="output-logo">
+                <img src="{{ url_for('static', filename='img/clear-sky.png') }}">
+            </div>
+            {% elif condition=='Clouds' %}
+            <div class="output-logo">
+                <img src="{{ url_for('static', filename='img/clouds.png') }}">
+            </div>
+            {% elif condition=='Thunderstorm' %}
+            <div class="output-logo">
+                <img src="{{ url_for('static', filename='img/thunder_storm.png') }}">
+            </div>
+            {% elif condition=='Haze' %}
+            <div class="output-logo">
+                <img src="{{ url_for('static', filename='img/haze.png') }}">
+            </div>
+            {% endif %}
+            <div class="output-desc">{{ desc }}</div>
+            <div class="output"><h3 style="color:green; font-size:22px; font-weight:bold;  font-family:'Courier New', Courier, monospace; ">TEMPERATURE:</h3>{{ temperature }} °C</div>
+            <div class="output"><h3 style="color:green; font-size:22px; font-weight:bold;  font-family:'Courier New', Courier, monospace; ">HUMIDITY:</h3>{{ humidity }} %</div>
+            <div class="output"><h3 style="color:green; font-size:22px; font-weight:bold;  font-family:'Courier New', Courier, monospace; ">PRESSURE:</h3>{{ pressure }} mb</div>
+            <div class="output"><h3 style="color:green; font-size:22px; font-weight:bold;  font-family:'Courier New', Courier, monospace; ">Wind Speed:</h3>{{ wind }} Km/h</div>
+        </div>
+        {% endif %}
+    </div>
+    {% if error_message %}
+    <script>
+        alert("Please enter a valid place");
+    </script>
+    {% endif %}
+</body>
+</html>
